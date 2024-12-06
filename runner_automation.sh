@@ -47,7 +47,7 @@ cat <<EOL > lab3/Dockerfile.dev
 FROM nginx:alpine
 
 # Copy the HTML file to the Nginx HTML directory
-COPY ./index.html /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
 EXPOSE 80
@@ -62,7 +62,7 @@ cat <<EOL > lab3/Dockerfile.prod
 FROM nginx:alpine
 
 # Copy the HTML file to the Nginx HTML directory
-COPY ./index.html /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
 EXPOSE 80
@@ -71,23 +71,3 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 EOL
 
-# Initialize git repository if not already initialized
-if [ ! -d ".git" ]; then
-  git init
-fi
-
-# Add all files to git
-git add .
-
-# Commit the changes
-git commit -m "Initial commit with GitHub Actions workflow and Dockerfiles"
-
-# Create and push the main branch
-git checkout -b main
-git push origin main
-
-# Create and push the dev branch
-git checkout -b dev
-git push origin dev
-
-echo "GitHub Actions workflow, Dockerfiles, and branches have been configured."
